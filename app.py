@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import pymysql
 import os
 from sqlalchemy import create_engine
@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 app = Flask(__name__)
 
 # MySQL Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@127.0.0.1:51559/flask-crud-app'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@127.0.0.1:3307/flask-crud-app'
 
 # Create SQLAlchemy engine
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
@@ -35,3 +35,13 @@ data = cursor.fetchone()
 print("Database version : %s " % data)
 
 
+@app.route('/')
+def index():
+    # Show all MY Shows
+    cursor.execute("SELECT * FROM MyShows")
+    ITEMS = cursor.fetchall()
+    print(ITEMS)
+    return render_template('base.html', ITEMS = ITEMS)
+
+if __name__ =="__main__":
+    app.run(host='127.0.0.1', port=8000, debug=True)
