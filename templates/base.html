@@ -5,15 +5,110 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Entertainment Life</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script src="https://kit.fontawesome.com/272634bd27.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>List of TV Shows / Movies viewed by Venky(@creater of this site)</h1>
-    <br>
+    <header>
+        <div class="header">
+            <nav class="nav">
+            <a href="/" class="logo">
+                SHOWTIME
+            </a>
+                <ul>
+                    <li class="nav_list">
+                        <a href="/" class="nav_button">Home</a>
+                    </li>
+                    <li class="nav_list">
+                        <a href="/" class="nav_button">TV Shows</a>
+                    </li>
+                    <li class="nav_list">
+                        <a href="/" class="nav_button">Movies</a>
+                    </li>
+                    <li class="nav_list">
+                        <a href="/" class="nav_button">Anime</a>
+                    </li>
+                    <li class="nav_list">
+                        <a href="/" class="nav_button">About</a>
+                    </li>
+                </ul>
+                <div class="toggle_btn" tabindex="1">
+                    <i class="fa-solid fa-bars"></i>
+                    <div class="dropdown_menu">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li>
+                            <a href="/">TV Shows</a>
+                        </li>
+                        <li>
+                            <a href="/">Movies</a>
+                        </li>
+                        <li>
+                            <a href="/">Anime</a>
+                        </li>
+                        <li>
+                            <a href="/">About</a>
+                        </li>
+                    </div>
+                </div>
+            </nav>
+            <p class="head_decription">I'm a big fan of all kinds of entertainment, and I love sharing my favorites with others. This website is my way of doing that.
+                <span class="arrow"></span>
+                <a href="#overlay" id="openFormBtn" class="Add_Button">Add a show
+                </a>
+            </p>
+            <div id="overlay">
+                <div id="formContainer">
+                    <h1>Add a Show</h1>
+                  <button id="closeFormBtn">Close</button>
+                  <form id="form" method="POST">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" required><br>
+
+                        <label for="director">Director:</label>
+                        <input type="text" id="director" name="director"><br>
+
+                        <label for="type">Type:</label>
+                        <select id="type" name="type" required>
+                            <option value="TV Show">TV Show</option>
+                            <option value="Movie">Movie</option>
+                        </select><br>
+
+                        <label for="anime">Anime:</label>
+                        <input type="checkbox" id="anime" name="anime" value="1"><br>
+
+                        <label for="genre">Genre:</label>
+                        <input type="text" id="genre" name="genre"><br>
+
+                        <input type="submit" value="Submit">
+
+                    <span>{{message}}</span>
+                  </form>
+                </div>
+                <script>
+                    document.getElementById("openFormBtn").addEventListener("click", function() {
+                    document.getElementById("overlay").style.display = "block";
+                    document.getElementById("formContainer").classList.add("open");
+                    });
+
+                    document.getElementById("closeFormBtn").addEventListener("click", function() {
+                    document.getElementById("overlay").style.display = "none";
+                    document.getElementById("formContainer").classList.remove("open");
+                    });
+                </script>
+            </div>
+        </div>
+    </header>
+
+    <!-- <a href="/Add_a_Show">
     <button type="button">Add a Show</button>
+    </a>
 
     {% for item in ITEMS %}
         <p>{{item[0]}} | {{item[1]}} | {{item[2]}} | {{item[3]}} | {{item[4]}} | {{item[5]}}</p>
+        <a href="/delete/{{item[0]}}">Delete</a>
     {% endfor %}
-    
+     -->
 </body>
 </html>

@@ -1,6 +1,5 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template, redirect, url_for
 import pymysql
-import os
 from sqlalchemy import create_engine
 
 app = Flask(__name__)
@@ -42,6 +41,31 @@ def index():
     ITEMS = cursor.fetchall()
     print(ITEMS)
     return render_template('base.html', ITEMS = ITEMS)
+
+@app.route("/delete/<int:show_id>")
+def delete(show_id):
+    print(show_id)
+    # Delete one MY Show
+    cursor.execute("DELETE FROM MyShows WHERE id = %s", show_id)
+    mysql.commit()
+    return redirect(url_for('index'))
+
+# @app.route('/Add_a_Show', methods=["POST"])
+# def Add_a_Show():
+#     title = request.form.get("title")
+#     director = request.form.get("director")
+#     type = request.form.get("type")
+#     anime = request.form.get("anime")
+#     genre = request.form.get("genre")
+
+#     cursor.execute('INSERT INTO MyShows (title, director, type, anime, genre) VALUES (%s, %s, %s, %s, %s)', (title, director, type, anime, genre))
+#     mysql.commit()
+#     message = "Form submitted successfully!"
+#     return message
+
+@app.route('/Add_a_Show')
+def Add_form():
+    return render_template('form.html')
 
 if __name__ =="__main__":
     app.run(host='127.0.0.1', port=8000, debug=True)
