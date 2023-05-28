@@ -60,31 +60,52 @@
             </p>
             <div id="overlay">
                 <div id="formContainer">
-                    <h1>Add a Show</h1>
-                  <button id="closeFormBtn">Close</button>
-                  <form id="form" method="POST">
-                        <label for="title">Title:</label>
-                        <input type="text" id="title" name="title" required><br>
+                    <div id="css_style">
+                        <h1>Add a Show</h1>
+                        <i id="closeFormBtn" class="fa-sharp fa-solid fa-xmark"></i>
+                    </div>
 
-                        <label for="director">Director:</label>
-                        <input type="text" id="director" name="director"><br>
+                    <div id="form" method="POST">
+                        <div class="input_field">
+                            <label for="title">Title</label>
+                            <input type="text" id="title" name="title" required><br>
+                        </div>
+                        <div class="input_field">
+                            <label for="director">Director</label>
+                            <input type="text" id="director" name="director" required><br>
+                        </div>
+                        <div class="input_field">
+                            <label for="type">Type</label>
+                            <select id="type" name="type" class="custom_select" required>
+                                <option value="TV Show">TV Show</option>
+                                <option value="Movie">Movie</option>
+                                <option value="Anime TV">Anime TV</option>
+                                <option value="Anime Movie">Anime Movie</option>
+                            </select>
+                        </div>
+                        <div class="input_field">
+                            <label for="genre">Genre</label>
+                            <div class="phrase-container" id="phraseContainer">
+                                <div class="phrase-item">
+                                    <span>Example Phrase</span>
+                                    <i onclick="removePhrase(this.parentNode)" class="fa-sharp fa-solid fa-xmark"></i>
+                                </div>
+                                <input type="text" id="phraseInput" name="genre">
+                            </div>
+                        </div>
 
-                        <label for="type">Type:</label>
-                        <select id="type" name="type" required>
-                            <option value="TV Show">TV Show</option>
-                            <option value="Movie">Movie</option>
-                        </select><br>
-
-                        <label for="anime">Anime:</label>
-                        <input type="checkbox" id="anime" name="anime" value="1"><br>
-
-                        <label for="genre">Genre:</label>
-                        <input type="text" id="genre" name="genre"><br>
-
-                        <input type="submit" value="Submit">
-
-                    <span>{{message}}</span>
-                  </form>
+                        <div class="input_field terms">
+                            <label class="check">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <p>Agreed to terms and conditions</p>
+                        </div>
+                        <div class="inputfield">
+                            <input type="submit" id="submit" value="Submit">
+                        </div>
+                        <span>{{message}}</span>
+                    </div>
                 </div>
                 <script>
                     document.getElementById("openFormBtn").addEventListener("click", function() {
@@ -96,6 +117,31 @@
                     document.getElementById("overlay").style.display = "none";
                     document.getElementById("formContainer").classList.remove("open");
                     });
+
+                    function handleKeyDown(event) {
+                        if (event.keyCode === 13) { // Check if the spacebar is pressed
+                            event.preventDefault(); // Prevent the spacebar from entering a space in the input field
+
+                            var phraseInput = document.getElementById('phraseInput');
+                            var phraseContainer = document.getElementById('phraseContainer');
+
+                            var phrase = phraseInput.value.trim(); // Remove leading/trailing spaces
+                            if (phrase !== '') {
+                                var div = document.createElement('div');
+                                div.className = 'phrase-item';
+                                div.innerHTML = '<span>' + phrase + '</span>' +
+                                                '<i onclick="removePhrase(this.parentNode)" class="fa-sharp fa-solid fa-xmark"></i>';
+
+                                phraseContainer.appendChild(div);
+
+                                phraseInput.value = ''; // Clear the input field
+                            }
+                        }
+                    }
+
+                    function removePhrase(phraseItem) {
+                        phraseItem.remove();
+                    }
                 </script>
             </div>
         </div>
